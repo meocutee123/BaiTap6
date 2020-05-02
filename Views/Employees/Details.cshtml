@@ -1,0 +1,97 @@
+﻿@model BaiTap6.Models.Employee
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<style>
+    .dl-horizontal dt{
+        text-align: left;
+    }
+    .dl-horizontal dd {
+        margin-left: 0;
+    }
+    .empPP{
+        width: 130px;
+        height: 180px;
+        object-fit: cover;
+    }
+</style>
+<h2>Employee details</h2>
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <div class="col-md-2">
+        <img class="empPP" src="@Url.Content(@Model.employeeProfilePicture)"/>
+    </div>
+    <div class=" col-md-10">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.employeeFirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.employeeFirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.employeeLastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.employeeLastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.employeeGender)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.employeeGender)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.employeeDateOfBirth)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.employeeDateOfBirth)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.employeeSalary)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.employeeSalary)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.employeeAddress)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.employeeAddress)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Division.divisionName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Division.divisionName)
+            </dd>
+            <dt>
+
+            </dt>
+            <dd>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.employeeID }) |
+                    @Html.ActionLink("Back to List", "Index")
+                </p>
+            </dd>
+        </dl>
+    </div>
+
+</div>
+

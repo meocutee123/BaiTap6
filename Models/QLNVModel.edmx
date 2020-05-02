@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QLNVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="divisionID" />
+          </Key>
+          <Property Name="divisionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="divisionName" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="employeeID" />
+          </Key>
+          <Property Name="employeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employeeFirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="employeeLastName" Type="nvarchar" MaxLength="100" />
+          <Property Name="employeeGender" Type="bit" />
+          <Property Name="employeeDateOfBirth" Type="date" />
+          <Property Name="employeeSalary" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="employeeProfilePicture" Type="nvarchar(max)" />
+          <Property Name="employeeAddress" Type="nvarchar" MaxLength="250" />
+          <Property Name="divisionID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Employee_ToTable">
+          <End Role="Division" Type="Self.Division" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="divisionID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="divisionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLNVModelStoreContainer">
+          <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Employee_ToTable" Association="Self.FK_Employee_ToTable">
+            <End Role="Division" EntitySet="Division" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QLNVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="divisionID" />
+          </Key>
+          <Property Name="divisionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="divisionName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_ToTable" FromRole="Division" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="employeeID" />
+          </Key>
+          <Property Name="employeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employeeFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="employeeLastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="employeeGender" Type="Boolean" />
+          <Property Name="employeeDateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="employeeSalary" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="employeeProfilePicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employeeAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="divisionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Division" Relationship="Self.FK_Employee_ToTable" FromRole="Employee" ToRole="Division" />
+        </EntityType>
+        <Association Name="FK_Employee_ToTable">
+          <End Role="Division" Type="Self.Division" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="divisionID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="divisionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLNVEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Divisions" EntityType="Self.Division" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <AssociationSet Name="FK_Employee_ToTable" Association="Self.FK_Employee_ToTable">
+            <End Role="Division" EntitySet="Divisions" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QLNVModelStoreContainer" CdmEntityContainer="QLNVEntities">
+          <EntitySetMapping Name="Divisions">
+            <EntityTypeMapping TypeName="QLNVModel.Division">
+              <MappingFragment StoreEntitySet="Division">
+                <ScalarProperty Name="divisionID" ColumnName="divisionID" />
+                <ScalarProperty Name="divisionName" ColumnName="divisionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="QLNVModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+                <ScalarProperty Name="employeeFirstName" ColumnName="employeeFirstName" />
+                <ScalarProperty Name="employeeLastName" ColumnName="employeeLastName" />
+                <ScalarProperty Name="employeeGender" ColumnName="employeeGender" />
+                <ScalarProperty Name="employeeDateOfBirth" ColumnName="employeeDateOfBirth" />
+                <ScalarProperty Name="employeeSalary" ColumnName="employeeSalary" />
+                <ScalarProperty Name="employeeProfilePicture" ColumnName="employeeProfilePicture" />
+                <ScalarProperty Name="employeeAddress" ColumnName="employeeAddress" />
+                <ScalarProperty Name="divisionID" ColumnName="divisionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

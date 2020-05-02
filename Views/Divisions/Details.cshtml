@@ -1,0 +1,31 @@
+﻿@model BaiTap6.Models.Division
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Division</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+           @Html.DisplayNameFor(model => model.divisionID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.divisionID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.divisionName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.divisionName)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.divisionID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
